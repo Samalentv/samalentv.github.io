@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMALEN AI Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="samalen-chatbot" class="chatbot-popup">
+        <div class="chatbot-header">
+            <img src="https://i.postimg.cc/5y096pCq/2baad7b0-74e0-48e5-8fbc-c94d47143a8e.jpg" alt="SAMALEN AI Logo" class="logo">
+            <h2>SAMALEN AI</h2>
+        </div>
+        <div class="chatbot-body" id="chat-body"></div>
+        <div class="chatbot-input">
+            <input type="text" id="user-input" placeholder="Andika hapa...">
+            <button onclick="sendMessage()">Tuma</button>
+        </div>
+    </div>
+    <button class="open-chatbot" onclick="toggleChatbot()">Chat na SAMALEN AI</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
