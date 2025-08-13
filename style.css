@@ -1,57 +1,70 @@
+/* ...existing code... */
 
-body {
-    font-family: Arial, sans-serif;
-}
-.chatbot-popup {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 350px;
-    height: 500px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    overflow: hidden;
-    flex-direction: column;
-}
-.chatbot-header {
-    background: #111;
-    color: white;
-    padding: 10px;
+#loading {
+    color: #888;
+    font-style: italic;
     display: flex;
     align-items: center;
+    gap: 8px;
 }
-.chatbot-header .logo {
-    height: 30px;
-    margin-right: 10px;
+
+#loading .spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid #ccc;
+    border-top: 3px solid #111;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: inline-block;
 }
-.chatbot-body {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
 }
-.chatbot-input {
-    padding: 10px;
-    display: flex;
-    border-top: 1px solid #ccc;
+
+/* Chatbot message bubbles */
+.chatbot-body div {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 16px;
+    max-width: 80%;
+    word-break: break-word;
+    transition: background 0.3s;
 }
-.chatbot-input input {
-    flex: 1;
-    padding: 8px;
+
+.chatbot-body div:nth-child(odd) {
+    background: #f1f1f1;
+    align-self: flex-start;
 }
-.chatbot-input button {
-    padding: 8px;
+
+.chatbot-body div:nth-child(even) {
+    background: #e0f7fa;
+    align-self: flex-end;
 }
-.open-chatbot {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #111;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
+
+/* Chatbot popup animation */
+.chatbot-popup {
+    transition: box-shadow 0.3s, transform 0.3s;
 }
+.chatbot-popup[style*="flex"] {
+    animation: popupIn 0.4s;
+}
+@keyframes popupIn {
+    0% { transform: scale(0.8); opacity: 0;}
+    100% { transform: scale(1); opacity: 1;}
+}
+
+/* Button hover effect */
+.open-chatbot:hover {
+    background: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Input focus effect */
+.chatbot-input input:focus {
+    outline: 2px solid #111;
+    background: #f9f9f9;
+}
+
+/* ...existing code... */
