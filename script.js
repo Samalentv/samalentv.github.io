@@ -31,7 +31,7 @@ function appendMessage(sender, text) {
 function showLoading(chatBody) {
     const loadingDiv = document.createElement("div");
     loadingDiv.id = "loading";
-    loadingDiv.textContent = "SAMALEN AI: Inafikiri...";
+    loadingDiv.innerHTML = '<span class="spinner"></span> SAMALEN AI: Inafikiri...';
     chatBody.appendChild(loadingDiv);
 }
 
@@ -39,6 +39,20 @@ function removeLoading(chatBody) {
     const loadingDiv = document.getElementById("loading");
     if (loadingDiv) chatBody.removeChild(loadingDiv);
 }
+
+// New: Clear chat function
+function clearChat() {
+    const chatBody = document.getElementById("chat-body");
+    chatBody.innerHTML = "";
+}
+
+// New: Handle Enter key for sending message
+document.addEventListener("DOMContentLoaded", function() {
+    const input = document.getElementById("user-input");
+    input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") sendMessage();
+    });
+});
 
 // Basic Q&A and fallback to AI API
 async function getBotResponse(msg) {
@@ -49,7 +63,7 @@ async function getBotResponse(msg) {
         return "Habari! Mimi ni SAMALEN AI. Naendelea kujifunza, na niko hapa kukusaidia.";
     }
     if (lower.includes("what is your name") || lower.includes("jina lako")) {
-        return "Jina langu ni GitHub Copilot, lakini hapa naitwa SAMALEN AI.";
+        return "Jina langu ni Samuel Efrem assistant, lakini hapa naitwa SAMALEN AI.";
     }
     if (lower.includes("who are you") || lower.includes("wewe ni nani")) {
         return "Mimi ni SAMALEN AI, chatbot ya awali inayojifunza kila siku!";
@@ -62,6 +76,19 @@ async function getBotResponse(msg) {
     }
     if (lower.includes("chelsea")) {
         return "Chelsea wana mechi kali wiki hii! Tafadhali tazama ratiba kamili.";
+    }
+    if (lower.includes("thank you") || lower.includes("asante")) {
+        return "Karibu sana! Kama una swali lingine, uliza tu.";
+    }
+    if (lower.includes("weather") || lower.includes("hali ya hewa")) {
+        return "Samahani, siwezi kutoa taarifa za hali ya hewa kwa sasa. Tafadhali angalia tovuti za hali ya hewa.";
+    }
+    if (lower.includes("clear chat") || lower.includes("futa mazungumzo")) {
+        clearChat();
+        return "Mazungumzo yamefutwa!";
+    }
+    if (lower.includes("help") || lower.includes("msaada")) {
+        return "Unaweza kuniuliza maswali ya kawaida, habari, michezo, au kutumia AI ya wazi kwa maswali magumu.";
     }
 
     // Try to get answer from open-source AI (e.g., Hugging Face Inference API)
@@ -80,7 +107,6 @@ async function getBotResponse(msg) {
             return data[0].generated_text + " (Jibu kutoka AI ya wazi)";
         }
     } catch (e) {
-        // Fallback if API fails
         return "Samahani, bado najifunza. Tafadhali jaribu tena au uliza swali lingine.";
     }
 
